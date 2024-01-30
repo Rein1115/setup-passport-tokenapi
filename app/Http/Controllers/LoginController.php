@@ -19,7 +19,8 @@ class LoginController extends Controller
 
             if (Auth::attempt($credentials)) 
             { 
-                $user = Auth::user(); $token = $user->createToken('MyAppToken')->accessToken; 
+                $user = Auth::user(); 
+                $token = $user->createToken('APP_ENV')->accessToken; 
                 $data['token'] = $token;
                 $data['user'] = Auth::user();
                 return response()->json(['token' => $data], 200); 
@@ -31,7 +32,7 @@ class LoginController extends Controller
 
         }catch(\Exception $e){
 
-            return response()->json(['status'=>false, 'error' => $e]);
+            return response()->json(['status'=>false, 'error' => $e->getMessage()]);
         }
        
     }

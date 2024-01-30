@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PublicController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,14 @@ Route::post('login',[LoginController::class,'login']);
 Route::post('register',[LoginController::class,'register']);
 
 Route::middleware('auth:api')->group(function(){
+    
+  
+    Route::resource('posts',AuthController::class);
+    Route::get('/retrieveData/{id}',[AuthController::class,'retrieveData']);
+
+
+    route::resource('publicposts',PublicController::class);
+
     
     Route::post('logout',[LoginController::class,'logout']);
 
